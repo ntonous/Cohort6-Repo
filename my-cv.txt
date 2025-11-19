@@ -2,3 +2,4 @@ INTRODUCTION
 I wamt to use this medium to teach my friends version control and the use of git 
 I have 4 wonderful friend with me on this call and they want to learn GIT but really don't know where to start 
 I'm adding more stuffs to this file
+I am saving something a bit
