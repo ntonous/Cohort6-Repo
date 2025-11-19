@@ -1,1 +1,2 @@
 I'm adding this page to tell you all my friends that working with GIT is the only way to save yourselve in this cruel world of programming.
+I will like to convert my next cv into a web page instead to a text file like this
