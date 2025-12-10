@@ -1,0 +1,104 @@
+trigger:
+  - main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  buildConfiguration: 'Release'
+  dotnetVersion: '9.x'
+
+stages:
+  - stage: Build
+    displayName: 'Build'
+    jobs:
+      - job: BuildJob
+        displayName: 'Build .NET 9 App'
+        steps:
+          - task: UseDotNet@2
+            inputs:
+              version: $(dotnetVersion)
+          - task: DotNetCoreCLI@2
+            inputs:
+              command: 'build'
+              arguments: '--configuration $(buildConfiguration)'
+          - task: DotNetCoreCLI@2
+            inputs:
+              command: 'publish'
+              arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+          - task: PublishBuildArtifacts@1
+            inputs:
+              PathtoPublish: $(Build.ArtifactStagingDirectory)
+              ArtifactName: 'app'
+
+  - stage: Dev
+    displayName: 'Deploy to Dev'
+    dependsOn: Build
+    condition: succeeded()
+    jobs:
+      - deployment: DeployDev
+        displayName: 'Deploy to Dev Environment'
+        environment: 'Dev'
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - task: DownloadBuildArtifacts@1
+                  inputs:
+                    buildType: 'current'
+                    downloadType: 'single'
+                    artifactName: 'app'
+                - task: AzureWebApp@1
+                  inputs:
+                    azureSubscription: 'Azure Connection'
+                    appType: 'webAppLinux'
+                    appName: 'your-app-dev'
+                    package: '$(Pipeline.Workspace)/app'
+
+  - stage: UAT
+    displayName: 'Deploy to UAT'
+    dependsOn: Dev
+    condition: succeeded()
+    jobs:
+      - deployment: DeployUAT
+        displayName: 'Deploy to UAT Environment'
+        environment: 'UAT'
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - task: DownloadBuildArtifacts@1
+                  inputs:
+                    buildType: 'current'
+                    downloadType: 'single'
+                    artifactName: 'app'
+                - task: AzureWebApp@1
+                  inputs:
+                    azureSubscription: 'Azure Connection'
+                    appType: 'webAppLinux'
+                    appName: 'your-app-uat'
+                    package: '$(Pipeline.Workspace)/app'
+
+  - stage: Prod
+    displayName: 'Deploy to Production'
+    dependsOn: UAT
+    condition: succeeded()
+    jobs:
+      - deployment: DeployProd
+        displayName: 'Deploy to Production Environment'
+        environment: 'Prod'
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - task: DownloadBuildArtifacts@1
+                  inputs:
+                    buildType: 'current'
+                    downloadType: 'single'
+                    artifactName: 'app'
+                - task: AzureWebApp@1
+                  inputs:
+                    azureSubscription: 'Azure Connection'
+                    appType: 'webAppLinux'
+                    appName: 'your-app-prod'
+                    package: '$(Pipeline.Workspace)/app'

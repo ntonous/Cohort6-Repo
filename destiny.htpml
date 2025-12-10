@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Kanding — Beautiful Landing Page</title>
+    <meta name="description" content="A clean, responsive landing page — hero, features, and call to action." />
+    <style>
+        :root{
+            --bg-1: #6a11cb;
+            --bg-2: #2575fc;
+            --card: rgba(255,255,255,0.08);
+            --glass: rgba(255,255,255,0.06);
+            --accent: #ffd166;
+            --text: #ffffff;
+            --muted: rgba(255,255,255,0.85);
+            --radius: 12px;
+            --maxw: 1100px;
+        }
+        *{box-sizing:border-box}
+        html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial}
+        body{
+            background: linear-gradient(120deg,var(--bg-1),var(--bg-2));
+            color:var(--text);
+            -webkit-font-smoothing:antialiased;
+            -moz-osx-font-smoothing:grayscale;
+        }
+        .wrap{max-width:var(--maxw);margin:0 auto;padding:48px 24px}
+        header{display:flex;align-items:center;justify-content:space-between;gap:16px}
+        .brand{display:flex;align-items:center;gap:12px}
+        .logo{width:44px;height:44px;border-radius:10px;background:linear-gradient(45deg,var(--accent),#ff9f1c);display:grid;place-items:center;color:#000;font-weight:700}
+        nav a{color:var(--muted);text-decoration:none;margin-left:18px;font-weight:600}
+        .hero{display:grid;grid-template-columns:1fr 420px;gap:32px;align-items:center;margin-top:48px}
+        .hero h1{font-size:clamp(28px,4vw,48px);margin:0;line-height:1.02}
+        .hero p{color:var(--muted);font-size:1.05rem;margin-top:16px}
+        .cta{margin-top:22px}
+        .btn{background:var(--accent);color:#000;padding:12px 18px;border-radius:10px;border:0;font-weight:700;cursor:pointer}
+        .sub{background:var(--glass);padding:18px;border-radius:14px;color:var(--muted);box-shadow:0 6px 20px rgba(0,0,0,0.15)}
+        .card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:36px}
+        .card{background:var(--card);padding:18px;border-radius:12px}
+        .features{margin-top:56px}
+        .footer{margin-top:64px;padding:28px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.03), transparent);display:flex;justify-content:space-between;align-items:center}
+        @media(max-width:900px){
+            .hero{grid-template-columns:1fr;}
+            .card-grid{grid-template-columns:repeat(2,1fr)}
+        }
+        @media(max-width:640px){
+            .card-grid{grid-template-columns:1fr}
+            header{flex-direction:column;align-items:flex-start}
+            .footer{flex-direction:column;gap:12px;align-items:flex-start}
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <header>
+            <div class="brand">
+                <div class="logo">K</div>
+                <div>
+                    <div style="font-weight:800;letter-spacing:0.2px">Kanding</div>
+                    <div style="font-size:12px;color:rgba(255,255,255,0.85)">Beautiful landing experiences</div>
+                </div>
+            </div>
+            <nav>
+                <a href="#features">Features</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#contact">Contact</a>
+            </nav>
+        </header>
+
+        <main class="hero">
+            <section>
+                <h1>Launch faster with a clean, modern landing page</h1>
+                <p>Simple, responsive, and designed to convert — a beautiful template ready for your product, portfolio, or app. Customize the colors, copy and call-to-action in seconds.</p>
+                <div class="cta">
+                    <button class="btn">Get Started — It's Free</button>
+                    <a href="#contact" style="margin-left:12px;color:var(--muted);font-weight:700;text-decoration:none">Contact us</a>
+                </div>
+                <div class="card-grid features" id="features">
+                    <div class="card">
+                        <strong>Fast to customize</strong>
+                        <p style="margin:8px 0;color:var(--muted)">Well-structured HTML and CSS make changes quick and safe.</p>
+                    </div>
+                    <div class="card">
+                        <strong>Responsive</strong>
+                        <p style="margin:8px 0;color:var(--muted)">Looks great on phones, tablets, and desktops.</p>
+                    </div>
+                    <div class="card">
+                        <strong>Accessible</strong>
+                        <p style="margin:8px 0;color:var(--muted)">High contrast and semantic markup for better accessibility.</p>
+                    </div>
+                </div>
+            </section>
+
+            <aside class="sub" aria-label="Signup panel">
+                <h3 style="margin:0 0 8px 0">Start your free trial</h3>
+                <p style="margin:0 0 12px 0;color:var(--muted)">No credit card — just sign up and start building.</p>
+                <form id="signup" onsubmit="event.preventDefault();alert('Thanks — demo signup complete!')">
+                    <input type="email" placeholder="Your email" required style="width:100%;padding:10px;border-radius:8px;border:0;margin-bottom:10px" />
+                    <button class="btn" style="width:100%">Start Free Trial</button>
+                </form>
+            </aside>
+        </main>
+
+        <section style="margin-top:40px">
+            <div class="wrap" style="padding:0">
+                <div style="display:flex;gap:18px;align-items:center;flex-wrap:wrap">
+                    <div style="flex:1;min-width:220px">
+                        <h2 style="margin:0">Why teams choose Kanding</h2>
+                        <p style="color:var(--muted);margin-top:8px">A minimal foundation that adapts to many use-cases — marketing, app landing, portfolios, and small business sites.</p>
+                    </div>
+                    <div style="display:flex;gap:12px;flex-wrap:wrap">
+                        <div style="background:rgba(255,255,255,0.06);padding:10px;border-radius:10px">Trusted by early startups</div>
+                        <div style="background:rgba(255,255,255,0.06);padding:10px;border-radius:10px">Easy to extend</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <div>
+                <strong>Kanding</strong>
+                <div style="color:var(--muted);font-size:13px">© " + new Date().getFullYear() + "</div>
+            </div>
+            <div style="color:var(--muted);font-size:14px">Built with care — customize it however you like.</div>
+        </footer>
+    </div>
+
+    <script>
+        // Small script to fix year text inside footer (keeps file static-friendly)
+        (function(){
+            try{
+                const ft = document.querySelector('.footer div div');
+                if(ft) ft.textContent = '© ' + new Date().getFullYear();
+            }catch(e){console.warn(e)}
+        })();
+    </script>
+</body>
+
+</html>
